@@ -17,7 +17,7 @@ A secure RESTful API for a personal blogging platform where users can register, 
 | **Validation** | Joi |
 | **Docs** | Swagger / OpenAPI 3.0 |
 
-**Why PostgreSQL?** The data has a clear relational structure — one user owns many posts. PostgreSQL handles this naturally with foreign keys and enforces data integrity at the database level, which is exactly what we need here.
+**Why PostgreSQL?** The data has a clear relational structure, one user owns many posts. PostgreSQL handles this naturally with foreign keys and enforces data integrity at the database level, which is exactly what we need here.
 
 ---
 
@@ -212,11 +212,11 @@ Every error returns a consistent JSON shape:
 
 ## Security Highlights
 
-- Passwords hashed with **bcryptjs** (salt rounds: 10) — never stored in plain text
+- Passwords hashed with **bcryptjs** (salt rounds: 10) , never stored in plain text
 - JWT tokens signed with a secret key and expire in **7 days**
-- Rate limiting via `express-rate-limit` — 100 requests per 15 minutes per IP
-- All sensitive config (DB URL, JWT secret) lives in `.env` — never committed to the repo
-- Env variables validated at startup — server refuses to start if any are missing
+- Rate limiting via `express-rate-limit` , 100 requests per 15 minutes per IP
+- All sensitive config (DB URL, JWT secret) lives in `.env` , never committed to the repo
+- Env variables validated at startup , server refuses to start if any are missing
 
 ---
 
