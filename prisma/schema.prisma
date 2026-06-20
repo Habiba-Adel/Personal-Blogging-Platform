@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+   provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  
+}
+
+
+model User {
+  //user table pk
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+
+  //cause each user can have many posts which make one to many relationship 
+  posts     Post[]
+
+
+  createdAt DateTime @default(now())
+}
+
+model Post {
+  //post table pk 
+  id        String   @id @default(uuid())
+
+  title     String
+  content   String
+
+  authorId  String
+  //and still here we need to map the foriegn key into the user primary key 
+  author    User @relation(fields: [authorId], references: [id])
+
+  createdAt DateTime @default(now())
+}

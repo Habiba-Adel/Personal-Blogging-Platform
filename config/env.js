@@ -1,0 +1,41 @@
+
+//the variables we need to geet them from the ,env file 
+const requiredEnvVars = [
+    "DATABASE_URL",
+    "PORT",
+    "JWT_SECRET",
+    "JWT_EXPIRES_IN",
+
+];
+
+//and then loop for each of this needed variables and making validation for them to make fast failure if there is missing in one of them and detect them from the start
+requiredEnvVars.forEach((key) => {
+    if (!process.env[key]) {
+        console.error(` Missing required environment variable: ${key}`);
+        process.exit(1);
+    }
+});
+
+
+//and then building the config object to can export it and call it in another files
+
+/**
+ * here we group all the needed things and the needed variables in the same object togather and that why we define the config object
+ * and here we define the db as object cause when the project will be grown there is will be existed more variables here extra to the url so thats why we need to make the db as object
+ */
+const config = {
+    port: parseInt(process.env.PORT) || 5000,
+    db: {
+        url: process.env.DATABASE_URL,
+    },
+
+    jwt: {
+        secret: process.env.JWT_SECRET,
+        expiresIn: process.env.JWT_EXPIRES_IN || "1d",
+    },
+
+
+};
+
+
+module.exports = config;
